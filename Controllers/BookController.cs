@@ -5,11 +5,11 @@ using bookish.Models;
 namespace bookish.Controllers;
 
 
-public class HomeController : Controller
+public class BookController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public BookController(ILogger<HomeController> logger)
     {
         _logger = logger;
     }
@@ -17,6 +17,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        BookViewModel bookModel = new BookViewModel { Author = "Anum", BookId = 1, Description = "We are learning...", Title = "How Does This Work?"};
+        ViewData["Book"] = bookModel;
         return View();
     }
 

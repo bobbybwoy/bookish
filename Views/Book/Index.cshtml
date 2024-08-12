@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Book Home Page";
+    var book = ViewData["Book"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome Book Home Page</h1>
+
+    <p>@book.Title</p>
+    <p>@book.Author</p>
+    <p>@book.Description</p>
+    <p>@book.BookId</p>
+</div>
