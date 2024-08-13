@@ -1,13 +1,22 @@
-﻿@{
+﻿@model IEnumerable<bookish.Models.BookViewModel>
+@{
     ViewData["Title"] = "Book Home Page";
-    var book = ViewBag.BookViewModel;
+    @* var book = ViewBag.BookViewModel; *@
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome Book Home Page</h1>
 
-    <p>@book.Title</p>
+    @* <p>@book.Title</p>
     <p>@book.Author</p>
     <p>@book.Description</p>
-    <p>@book.BookId</p>
+    <p>@book.BookId</p> *@
+    @foreach (var item in Model)
+    {
+        <p>@Html.DisplayFor(modelItem => item.Id)</p>
+        <p>@Html.DisplayFor(modelItem => item.BookId)</p>
+        <p>@Html.DisplayFor(modelItem => item.Title)</p>
+        <p>@Html.DisplayFor(modelItem => item.Author)</p>
+        <p>@Html.DisplayFor(modelItem => item.Description)</p>
+    }
 </div>

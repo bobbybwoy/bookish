@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
+using bookish.DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace bookish.Controllers;
 
@@ -8,18 +10,18 @@ namespace bookish.Controllers;
 public class BookController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly BookishContext _context;
 
-    public BookController(ILogger<HomeController> logger)
+    public BookController(ILogger<HomeController> logger, BookishContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
 
-    public IActionResult Index()
-    {
-        BookViewModel bookModel = new BookViewModel() { Author = "Anum", BookId = 1, Description = "We are learning...", Title = "How Does This Work?"};
-        ViewBag.BookViewModel = bookModel;
-        return View();
+    public async Task<IActionResult> Index()
+    { 
+        return View(await _context.Books.ToListAsync());
     }
 
     public IActionResult Privacy()
