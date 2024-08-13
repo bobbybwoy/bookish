@@ -17,8 +17,8 @@ public class BookController : Controller
 
     public IActionResult Index()
     {
-        BookViewModel bookModel = new BookViewModel { Author = "Anum", BookId = 1, Description = "We are learning...", Title = "How Does This Work?"};
-        ViewData["Book"] = bookModel;
+        BookViewModel bookModel = new BookViewModel() { Author = "Anum", BookId = 1, Description = "We are learning...", Title = "How Does This Work?"};
+        ViewBag.BookViewModel = bookModel;
         return View();
     }
 
