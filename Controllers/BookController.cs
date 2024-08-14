@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
 using bookish.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace bookish.Controllers;
 
@@ -33,6 +34,54 @@ public class BookController : Controller
     {
         return View();
     }
+
+    [HttpGet]
+    public ActionResult AddBook()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public ActionResult AddBook(BookViewModel book)
+    {
+        if (ModelState.IsValid)
+        {
+            // string connectionString = "Server=localhost;Port=5432;Database=bookish;User Id=bookish;Password=bookish;";
+            // string insertQuery = "INSERT INTO Books(BookId, Title, Author, Description) VALUES(@BookId, @Title, @Author, @Description)";
+
+
+
+            // using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            // {
+            //     NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection);
+            //     command.Parameters.AddWithValue("@BookId", book.BookId);
+            //     command.Parameters.AddWithValue("@Title", book.Title);
+            //     command.Parameters.AddWithValue("@Author", book.Author);
+            //     command.Parameters.AddWithValue("@Description", book.Description);
+
+            //     connection.Open();
+            //     command.ExecuteNonQuery();
+            // }
+
+            _context.Books.Add(book);
+            _context.SaveChanges();
+
+
+            ViewBag.Message = "Employee data inserted successfully.";
+
+        }
+        else
+        {
+            ViewBag.Message = "There are some errors on the page.";
+            return View(book);
+        }
+        return View();
+    }
+
+    // public ActionResult Success()
+    // {
+    //     return View();
+    // }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

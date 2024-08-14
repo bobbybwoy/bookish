@@ -1,0 +1,33 @@
+@model BookViewModel
+ 
+@{
+    ViewBag.Title = "Insert Book";
+}
+ 
+<h2>Insert Book</h2>
+ 
+@if(!String.IsNullOrEmpty(ViewBag.Message))
+{
+    <div>@ViewBag.Message</div>
+}
+ 
+@using(Html.BeginForm())
+{
+    @Html.LabelFor(m => m.BookId)
+    @Html.TextBoxFor(m => m.BookId)
+    <br>
+ 
+    @Html.LabelFor(m => m.Title)
+    @Html.TextBoxFor(m => m.Title)
+    <br>
+ 
+    @Html.LabelFor(m => m.Author)
+    @Html.TextBoxFor(m => m.Author)
+    <br>
+ 
+    @Html.LabelFor(m => m.Description)
+    @Html.TextBoxFor(m => m.Description)
+    <br>
+ 
+    <input type="submit" value="Submit">
+}
