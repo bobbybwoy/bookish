@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Book Details";
-    int bookId = Model.Id;
 }
 
 <div>
@@ -15,5 +14,4 @@
     <p>Author : @Html.DisplayFor(model => model.Author)</p>
     <p>Description : @Html.DisplayFor(model => model.Description)</p>
 
-    <p><a asp-action="UpdateDescription" asp-route-id="@bookId">Update Description</a></p>
 </div>

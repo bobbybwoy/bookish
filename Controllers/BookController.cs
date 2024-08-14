@@ -23,7 +23,7 @@ public class BookController : Controller
 
     public async Task<IActionResult> Index()
     { 
-        return View(await _context.Books.ToListAsync());
+        return View(await _context.Books.OrderBy(book => book.Id).ToListAsync());
     }
 
     public IActionResult Privacy()
@@ -41,16 +41,12 @@ public class BookController : Controller
         int statusCode = 0;
         if (id == null)
         {
-            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             statusCode =  StatusCodes.Status400BadRequest;
-            ViewBag.Message = $"There is a {statusCode} error here.";
-            
+            ViewBag.Message = $"There is a {statusCode} error here.";   
         }
         BookViewModel? book = _context.Books.Find(id);
         if (book == null)
         {
-             //return HttpNotFound();
-            // return Error();
             statusCode =  StatusCodes.Status404NotFound;
             ViewBag.Message = $"There is a {statusCode} error here.";
         }
@@ -98,6 +94,34 @@ public class BookController : Controller
             return View(book);
         }
         return View();
+    }
+
+    [HttpGet]
+    public ActionResult UpdateDescription(int? id)
+    {
+        BookViewModel? book = _context.Books.Find(id);
+        return View(book);
+    }
+
+    [HttpPost]
+    public ActionResult UpdateDescription(int? id, string description)
+    {
+        if (id == null)
+        {
+            // We will do some stuff
+            return View();
+        }
+        BookViewModel? book = _context.Books.Find(id);
+        if (book == null)
+        {
+            // do some stuff
+            return View();
+        }
+        book.Description = description;
+        _context.Books.Update(book);
+        _context.SaveChanges();
+
+        return RedirectToAction("Details", new { id = id });
     }
 
     // public ActionResult Success()
