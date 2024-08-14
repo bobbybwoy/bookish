@@ -4,6 +4,7 @@ using bookish.Models;
 using bookish.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using Microsoft.AspNetCore.Http;
 
 namespace bookish.Controllers;
 
@@ -33,6 +34,27 @@ public class BookController : Controller
     public IActionResult MyPage()
     {
         return View();
+    }
+
+    public ActionResult Details(int? id)
+    {
+        int statusCode = 0;
+        if (id == null)
+        {
+            //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            statusCode =  StatusCodes.Status400BadRequest;
+            ViewBag.Message = $"There is a {statusCode} error here.";
+            
+        }
+        BookViewModel? book = _context.Books.Find(id);
+        if (book == null)
+        {
+             //return HttpNotFound();
+            // return Error();
+            statusCode =  StatusCodes.Status404NotFound;
+            ViewBag.Message = $"There is a {statusCode} error here.";
+        }
+        return View(book);
     }
 
     [HttpGet]
