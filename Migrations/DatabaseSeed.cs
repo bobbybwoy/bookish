@@ -3,11 +3,11 @@ using bookish.DataAccessLayer;
 
 
 namespace bookish.Migrations;
-public class BookTableSeed
+public class DatabaseSeed
 {
     private readonly BookishContext _context;
 
-    public BookTableSeed(BookishContext context)
+    public DatabaseSeed(BookishContext context)
     {
         _context = context;
     }
@@ -40,5 +40,28 @@ public class BookTableSeed
             _context.Books.AddRange(books);
             _context.SaveChanges();
         }
+
+        if (!_context.Members.Any())
+        {
+            IEnumerable<MemberViewModel> members = new List<MemberViewModel>()
+            {
+                new MemberViewModel()
+                {
+                    Id = 1,
+                    Name = "Anum"
+                    
+                },
+                new MemberViewModel()
+                {
+                    Id = 2,
+                    Name = "Robert"
+                },
+            };
+
+            _context.Members.AddRange(members);
+            _context.SaveChanges();
+        }
+
+
     }
 }

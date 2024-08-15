@@ -4,7 +4,7 @@ using bookish.Models;
 using bookish.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Http;
 
 namespace bookish.Controllers;
 
@@ -38,17 +38,16 @@ public class BookController : Controller
 
     public ActionResult Details(int? id)
     {
-        int statusCode = 0;
         if (id == null)
         {
-            statusCode =  StatusCodes.Status400BadRequest;
-            ViewBag.Message = $"There is a {statusCode} error here.";   
+            ViewBag.Message = "Id missing from request";
+            return View("Error");   
         }
         BookViewModel? book = _context.Books.Find(id);
         if (book == null)
         {
-            statusCode =  StatusCodes.Status404NotFound;
-            ViewBag.Message = $"There is a {statusCode} error here.";
+            ViewBag.Message = "Book not found";
+            return View("Error");
         }
         return View(book);
     }
@@ -99,23 +98,36 @@ public class BookController : Controller
     [HttpGet]
     public ActionResult UpdateDescription(int? id)
     {
+        if (id == null)
+        {
+            // TODO: Add more meaningful error handling.
+            // return RedirectToAction("Error");
+            ViewBag.Message = "Id missing from request";
+            return View("Error");
+        }
         BookViewModel? book = _context.Books.Find(id);
+        if (book == null)
+        {
+            ViewBag.Message = "Book not found";
+            return View("Error");
+        }
         return View(book);
     }
 
     [HttpPost]
     public ActionResult UpdateDescription(int? id, string description)
     {
+        // ViewBag.Message = "";
         if (id == null)
         {
-            // We will do some stuff
-            return View();
+            ViewBag.Message = "Id missing from request";
+            return View("Error");
         }
         BookViewModel? book = _context.Books.Find(id);
         if (book == null)
         {
-            // do some stuff
-            return View();
+            ViewBag.Message = "Book not found";
+            return View("Error");
         }
         book.Description = description;
         _context.Books.Update(book);
@@ -123,11 +135,6 @@ public class BookController : Controller
 
         return RedirectToAction("Details", new { id = id });
     }
-
-    // public ActionResult Success()
-    // {
-    //     return View();
-    // }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

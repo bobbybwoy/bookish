@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 // builder.Services.AddDbContext<MvcMovieContext>(options =>
 //         options.UseSqlite(builder.Configuration.GetConnectionString("MvcMovieContext"))
 builder.Services.AddDbContext<BookishContext>();
-builder.Services.AddTransient<BookTableSeed>();
+builder.Services.AddTransient<DatabaseSeed>();
 
 var app = builder.Build();
 
@@ -35,7 +35,7 @@ app.MapControllerRoute(
 
 using (var scope = app.Services.CreateScope())
 {
-    var seeder = scope.ServiceProvider.GetRequiredService<BookTableSeed>();
+    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeed>();
     seeder.Seed();
 }
 

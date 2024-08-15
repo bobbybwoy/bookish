@@ -1,17 +1,17 @@
-@model BookViewModel
+@* @model BookViewModel *@
 
 @{
-    ViewBag.Title = "Book Details";
+    ViewBag.Title = "Error";
 }
 
 <div>
-    <h1 class="display-4">Book Id  @Html.DisplayFor(model => model.Id) Details Page</h1>
+    <h1 class="display-4">Error</h1>
 
     <div><strong>@ViewBag.Message</strong></div>
 
-    <p>Book Id : @Html.DisplayFor(model => model.BookId)</p>
+    @* <p>Book Id : @Html.DisplayFor(model => model.BookId)</p>
     <p>Title : @Html.DisplayFor(model => model.Title)</p>
     <p>Author : @Html.DisplayFor(model => model.Author)</p>
-    <p>Description : @Html.DisplayFor(model => model.Description)</p>
+    <p>Description : @Html.DisplayFor(model => model.Description)</p> *@
 
 </div>
