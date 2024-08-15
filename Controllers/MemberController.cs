@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
 using bookish.DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace bookish.Controllers;
 
@@ -15,9 +16,9 @@ public class MemberController : Controller
         _context = context;
     }
     // GET: MemberController : prints a list of members
-    public ActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        return View(await _context.Members.OrderBy(member => member.Id).ToListAsync());
     }
 
 }

@@ -1,0 +1,30 @@
+@model IEnumerable<bookish.Models.MemberViewModel>
+@{
+    ViewData["Title"] = "Member Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome Member Home Page</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </a>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

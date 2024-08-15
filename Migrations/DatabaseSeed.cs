@@ -41,6 +41,8 @@ public class DatabaseSeed
             _context.SaveChanges();
         }
 
+
+        
         if (!_context.Members.Any())
         {
             IEnumerable<MemberViewModel> members = new List<MemberViewModel>()
@@ -61,7 +63,46 @@ public class DatabaseSeed
             _context.Members.AddRange(members);
             _context.SaveChanges();
         }
+        
+        if (!_context.BorrowedBooks.Any())
+        {
+            IEnumerable<BorrowedBook> borrowedBooks = new List<BorrowedBook>()
+            {
+                new BorrowedBook()
+                {
+                    Id = 1,
+                    MemberId = 1,
+                    BookId = 2,
+                    DueDate = new DateOnly(2024,09,01)
+                    
+                },
+                new BorrowedBook()
+                {
+                    Id = 2,
+                    MemberId = 1,
+                    BookId = 4,
+                    DueDate = new DateOnly(2024,09,04)
+                },
+                new BorrowedBook()
+                {
+                    Id = 3,
+                    MemberId = 2,
+                    BookId = 1,
+                    DueDate = new DateOnly(2024,08,31)
+                    
+                },
+                new BorrowedBook()
+                {
+                    Id = 4,
+                    MemberId = 2,
+                    BookId = 3,
+                    DueDate = new DateOnly(2024,08,02)
+                },
+            };
 
+            _context.BorrowedBooks.AddRange(borrowedBooks);
+            _context.SaveChanges();
+        }
 
     }
 }
