@@ -11,7 +11,7 @@ public class BookishContext : DbContext
     {
     }
     public DbSet<BookViewModel> Books { get; set; }
-    public DbSet<MemberViewModel> Members { get; set; }
+    public DbSet<Member> Members { get; set; }
     public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

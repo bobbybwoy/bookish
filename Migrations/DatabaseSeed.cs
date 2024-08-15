@@ -45,15 +45,15 @@ public class DatabaseSeed
         
         if (!_context.Members.Any())
         {
-            IEnumerable<MemberViewModel> members = new List<MemberViewModel>()
+            IEnumerable<Member> members = new List<Member>()
             {
-                new MemberViewModel()
+                new Member()
                 {
                     Id = 1,
                     Name = "Anum"
                     
                 },
-                new MemberViewModel()
+                new Member()
                 {
                     Id = 2,
                     Name = "Robert"

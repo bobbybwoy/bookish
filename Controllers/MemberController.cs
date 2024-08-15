@@ -21,5 +21,25 @@ public class MemberController : Controller
         return View(await _context.Members.OrderBy(member => member.Id).ToListAsync());
     }
 
+    public async Task<IActionResult> Details(int? id)
+    {
+        //To do: need a view for Details
+        var data = await (from mem in _context.Members
+                        join bb in _context.BorrowedBooks
+                        on mem.Id equals bb.MemberId
+                        join bk in _context.Books
+                        on bb.BookId equals bk.Id
+                        where mem.Id == id 
+                        select new MemberViewModel
+                        {
+                            Id = mem.Id,
+                            Name = mem.Name,
+                            BookId = bb.BookId,
+                            BookTitle = bk.Title,
+                            DueDate = bb.DueDate,
+                        }).OrderBy(d => d.DueDate).ToListAsync<MemberViewModel>();
+        return View();
+    }
+
 }
 
